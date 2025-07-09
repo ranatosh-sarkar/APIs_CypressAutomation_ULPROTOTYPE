@@ -22,9 +22,16 @@ pipeline {
     }
 
     post {
-        always {
-            archiveArtifacts artifacts: 'cypress/reports/**/*.json', fingerprint: true
-            junit 'cypress/reports/**/*.xml'
+    always {
+        archiveArtifacts artifacts: 'cypress/reports/**/*.json', fingerprint: true
+        junit 'cypress/reports/**/*.xml'
+        publishHTML(target: [
+            allowMissing: true,
+            keepAll: true,
+            reportDir: 'cypress/reports/mochawesome-report',
+            reportFiles: 'mochawesome.html',
+            reportName: 'Cypress Test Report'
+            ])
+            }
         }
-    }
 }
