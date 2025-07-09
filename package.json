@@ -1,0 +1,22 @@
+{
+  "name": "ul-api_automation",
+  "version": "1.0.0",
+  "description": "An automation testing framewoork to test APIs developed for a SavingsAccount prototype. This project is a part of my UL thesis.",
+  "main": "index.js",
+  "scripts": {
+    "cy:open": "cypress open",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ranatosh Sarkar",
+  "license": "ISC",
+  "devDependencies": {
+    "cypress": "^14.5.1",
+    "cypress-mochawesome-reporter": "^3.8.2",
+    "mochawesome": "^7.1.3",
+    "mochawesome-merge": "^5.0.0",
+    "mochawesome-report-generator": "^6.2.0"
+  },
+  "dependencies": {
+    "ajv": "^8.17.1"
+  }
+}
