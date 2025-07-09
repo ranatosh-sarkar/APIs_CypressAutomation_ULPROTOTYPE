@@ -24,12 +24,12 @@ pipeline {
     post {
         always {
             archiveArtifacts artifacts: 'cypress/reports/**/*.json', fingerprint: true
-            junit 'cypress/reports/**/*.xml'
+            // junit 'cypress/reports/**/*.xml'   // <-- COMMENT THIS unless using mocha-junit-reporter
             publishHTML(target: [
                 allowMissing: true,
                 keepAll: true,
                 reportDir: 'cypress/reports/html',
-                reportFiles: 'index.html',
+                reportFiles: 'mochawesome.html',
                 reportName: 'Cypress Test Report'
             ])
         }
