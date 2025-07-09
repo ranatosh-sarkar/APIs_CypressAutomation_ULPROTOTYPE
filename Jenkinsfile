@@ -28,10 +28,10 @@ pipeline {
         publishHTML(target: [
             allowMissing: true,
             keepAll: true,
-            reportDir: 'cypress/reports/mochawesome-report',
-            reportFiles: 'mochawesome.html',
+            reportDir: 'cypress/reports/html',
+            reportFiles: 'index.html',
             reportName: 'Cypress Test Report'
             ])
-            }
         }
+    }
 }
