@@ -17,7 +17,8 @@ pipeline {
         stage('Run Cypress Tests') {
             steps {
                 bat '''
-                npx cypress run --reporter mochawesome ^
+                npx cypress run ^
+                  --reporter mochawesome ^
                   --reporter-options "reportDir=cypress/reports/html,overwrite=false,html=true,json=true" ^
                 || exit 0
                 '''
@@ -26,16 +27,15 @@ pipeline {
     }
 
     post {
-    always {
-        archiveArtifacts artifacts: 'cypress/reports/**/*.json', fingerprint: true
-        //junit 'cypress/reports/**/*.xml'
-        publishHTML(target: [
-            allowMissing: true,
-            keepAll: true,
-            reportDir: 'cypress/reports/html',
-            reportFiles: 'mochawesome.html',
-            reportName: 'Cypress Test Report'
-        ])
+        always {
+            archiveArtifacts artifacts: 'cypress/reports/**/*.json', fingerprint: true
+            publishHTML(target: [
+                allowMissing: true,
+                keepAll: true,
+                reportDir: 'cypress/reports/html',
+                reportFiles: 'mochawesome.html',
+                reportName: 'Cypress Test Report'
+            ])
+        }
     }
-}
 }
