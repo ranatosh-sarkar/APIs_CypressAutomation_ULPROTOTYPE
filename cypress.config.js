@@ -1,5 +1,8 @@
 const { defineConfig } = require('cypress');
 
+// Get the dynamic port from environment variable or fallback to 8082
+const port = process.env.API_PORT || '8082';
+
 module.exports = defineConfig({
   reporter: 'cypress-mochawesome-reporter',
   reporterOptions: {
@@ -10,10 +13,10 @@ module.exports = defineConfig({
     autoOpen: false,
     embeddedScreenshots: true,
     saveAllAttempts: false,
-    
     quiet: true
   },
   e2e: {
+    baseUrl: `http://localhost:${port}/UL_SavingsAccount-API_prototype`,
     setupNodeEvents(on, config) {
       require('cypress-mochawesome-reporter/plugin')(on);
     }
