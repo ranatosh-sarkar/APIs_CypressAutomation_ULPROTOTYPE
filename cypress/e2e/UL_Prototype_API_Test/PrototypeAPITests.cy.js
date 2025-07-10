@@ -56,7 +56,7 @@ describe("Testing ALL APIs: Demonstrating API Request Chaining", () => {
     // Step 1: POST /addRegister
     cy.request({
       method: "POST",
-      url: "http://localhost:8082/UL_SavingsAccount-API_prototype/addRegister",
+      url: `${Cypress.config().baseUrl}/addRegister`,
       body: requestBody_addRegister
     }).then((response) => {
       expect(response.status).to.eq(200);
@@ -77,7 +77,7 @@ describe("Testing ALL APIs: Demonstrating API Request Chaining", () => {
     const registerByContactNumber = 6087654321;
     cy.request({
       method: "GET",
-      url: "http://localhost:8082/UL_SavingsAccount-API_prototype/registerByContact",
+      url: `${Cypress.config().baseUrl}/registerByContact`,
       qs: { contact: registerByContactNumber } // query parameter
     }).then((response) => {
       expect(response.status).to.eq(200);
@@ -97,7 +97,7 @@ describe("Testing ALL APIs: Demonstrating API Request Chaining", () => {
     cy.log("Hitting /registers api");
     cy.request({
       method: "GET",
-      url: "http://localhost:8082/UL_SavingsAccount-API_prototype/registers"
+      url: `${Cypress.config().baseUrl}/registers`
     }).then((getResponse) => {
       expect(getResponse.status).to.eq(200);
       expect(getResponse.body).to.be.an("array");
@@ -126,7 +126,7 @@ describe("Testing ALL APIs: Demonstrating API Request Chaining", () => {
 
     cy.request({
             method: "POST",
-            url: "http://localhost:8082/UL_SavingsAccount-API_prototype/addApplication",
+            url: `${Cypress.config().baseUrl}/addApplication`,
             body: requestBody_addApplication
         }).then((response) => {
     
@@ -156,7 +156,7 @@ describe("Testing ALL APIs: Demonstrating API Request Chaining", () => {
 
     cy.request({
                 method: "GET",
-                url: `http://localhost:8082/UL_SavingsAccount-API_prototype/applicationByContact/${contactNumber}`
+                url: `${Cypress.config().baseUrl}/applicationByContact/${contactNumber}`
                }).then((response) => {
   
                 expect(response.status).to.eq(200);
@@ -184,7 +184,7 @@ describe("Testing ALL APIs: Demonstrating API Request Chaining", () => {
     cy.log("Hitting /applications api");
     cy.request({
       method: "GET",
-      url: "http://localhost:8082/UL_SavingsAccount-API_prototype/applications"
+      url: `${Cypress.config().baseUrl}/applications`
     }).then((getResponse) => {
       expect(getResponse.status).to.eq(200);
       expect(getResponse.body).to.be.an("array");
@@ -217,7 +217,7 @@ describe("Testing ALL APIs: Demonstrating API Request Chaining", () => {
 
         cy.request({
             method: "POST",
-            url: "http://localhost:8082/UL_SavingsAccount-API_prototype/kycDataCapture",
+            url: `${Cypress.config().baseUrl}/kycDataCapture`,
             body: requestBody_kycDataCapture
         }).then((response) => {
         expect(response.status).to.eq(200);
@@ -256,7 +256,7 @@ describe("Testing ALL APIs: Demonstrating API Request Chaining", () => {
 
         cy.request({
             method: "POST",
-            url: "http://localhost:8082/UL_SavingsAccount-API_prototype/kycVerification",
+            url: `${Cypress.config().baseUrl}/kycVerification`,
             body: requestBody_kycVerification
         }).then((response) => {
 
@@ -290,7 +290,7 @@ describe("Testing ALL APIs: Demonstrating API Request Chaining", () => {
 
     cy.request({
             method: "POST",
-            url: "http://localhost:8082/UL_SavingsAccount-API_prototype/deposit",
+            url: `${Cypress.config().baseUrl}/deposit`,
             body: requestBody_deposit
         }).then((response) => {
 
@@ -321,7 +321,7 @@ describe("Testing ALL APIs: Demonstrating API Request Chaining", () => {
 
     cy.request({
                 method: "POST",
-                url: "http://localhost:8082/UL_SavingsAccount-API_prototype/withdraw",
+                url: `${Cypress.config().baseUrl}/withdraw`,
                 body: requestBody_withdraw
             }).then((response) => {
 
@@ -357,7 +357,7 @@ describe("Testing ALL APIs: Demonstrating API Request Chaining", () => {
 
         cy.request({
                 method: "POST",
-                url: `http://localhost:8082/UL_SavingsAccount-API_prototype/transferFund/${recipientContact}`,
+                url: `${Cypress.config().baseUrl}/transferFund/${recipientContact}`,
                 body: requestBody_transfer
             }).then((response) => {
 
@@ -413,7 +413,7 @@ describe("Testing ALL APIs: Demonstrating API Request Chaining", () => {
 
     cy.request({
             method: "GET",
-            url: `http://localhost:8082/UL_SavingsAccount-API_prototype/displayStatement/${contact}?password=${password}`
+            url: `${Cypress.config().baseUrl}/displayStatement/${contact}?password=${password}`
             }).then((response) => {
             expect(response.status).to.eq(200);
             expect(response.body).to.be.an("array");
