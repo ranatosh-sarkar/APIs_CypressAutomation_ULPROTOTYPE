@@ -29,7 +29,7 @@ pipeline {
             allowMissing: true,
             keepAll: true,
             reportDir: 'cypress/reports/html',
-            reportFiles: 'mochawesome.html',
+            reportFiles: 'index.html',
             reportName: 'Cypress Test Report'
         ])
     }
