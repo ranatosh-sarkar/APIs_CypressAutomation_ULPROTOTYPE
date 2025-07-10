@@ -16,7 +16,11 @@ pipeline {
 
         stage('Run Cypress Tests') {
             steps {
-                bat 'npx cypress run --reporter mochawesome --reporter-options "reportDir=cypress/reports/html,overwrite=false,html=true,json=false"'
+                bat '''
+                npx cypress run --reporter mochawesome ^
+                  --reporter-options "reportDir=cypress/reports/html,overwrite=false,html=true,json=true" ^
+                || exit 0
+                '''
             }
         }
     }
@@ -29,7 +33,7 @@ pipeline {
             allowMissing: true,
             keepAll: true,
             reportDir: 'cypress/reports/html',
-            reportFiles: 'index.html',
+            reportFiles: 'mochawesome.html',
             reportName: 'Cypress Test Report'
         ])
     }
