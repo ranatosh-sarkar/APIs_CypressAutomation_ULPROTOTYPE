@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    environment {
+        PORT = '8082' // Change this to 8083 in UAT job
+    }
+
     stages {
         stage('Checkout') {
             steps {
@@ -17,6 +21,7 @@ pipeline {
         stage('Run Cypress Tests') {
             steps {
                 bat '''
+                set CYPRESS_baseUrl=http://localhost:%PORT%/UL_SavingsAccount-API_prototype &&
                 npx cypress run ^
                   --reporter mochawesome ^
                   --reporter-options "reportDir=cypress/reports/html,overwrite=false,html=true,json=true" ^
