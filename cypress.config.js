@@ -6,11 +6,16 @@ module.exports = defineConfig({
     reportDir: 'cypress/reports/html',
     overwrite: false,
     html: true,
-    json: true
+    json: true,
+    autoOpen: false,
+    embeddedScreenshots: true,
+    saveAllAttempts: false,
+    
+    quiet: true
   },
   e2e: {
     setupNodeEvents(on, config) {
       require('cypress-mochawesome-reporter/plugin')(on);
-    },
-  },
+    }
+  }
 });
