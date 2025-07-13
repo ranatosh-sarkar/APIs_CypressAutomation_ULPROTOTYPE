@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
   "cy:open": "cypress open",
-  "test": "npx cypress run --reporter mochawesome --reporter-options \"reportDir=cypress/reports/html,overwrite=false,html=true,json=false\""
+  "test": "npx cypress run --reporter cypress-mochawesome-reporter --reporter-options \"reportDir=cypress/reports/html,overwrite=false,html=true,json=false\""
   },
   "author": "Ranatosh Sarkar",
   "license": "ISC",

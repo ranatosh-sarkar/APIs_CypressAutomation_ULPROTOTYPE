@@ -43,8 +43,8 @@ describe("Testing ALL APIs: Demonstrating API Request Chaining", () => {
 
     console.log("Hitting /addRegister api");
     cy.log("Hitting /addRegister api");
-    console.log(`FirstName: ${firstName}, Contact: ${contact}, Password: ${password}`);
-    cy.log(`FirstName: ${firstName}, Contact: ${contact}, Password: ${password}`);
+    // console.log(`FirstName: ${firstName}, Contact: ${contact}, Password: ${password}`);
+    // cy.log(`FirstName: ${firstName}, Contact: ${contact}, Password: ${password}`);
 
     const requestBody_addRegister = {
       contact,
@@ -65,8 +65,8 @@ describe("Testing ALL APIs: Demonstrating API Request Chaining", () => {
       expect(response.body.lastName).to.eq(lastName);
       expect(response.body.email).to.eq(email);
       expect(response.body.password).to.eq(password);
-      console.log(`/addRegister: ${contact} -- passed successfully`);
-      cy.log(`/addRegister: ${contact} -- passed successfully`);
+      console.log(`/addRegister: passed successfully`);
+      cy.log(`/addRegister: passed successfully`);
     });
 
     cy.wait(3000);
@@ -86,8 +86,8 @@ describe("Testing ALL APIs: Demonstrating API Request Chaining", () => {
       expect(response.body.lastName).to.eq("Collins");
       expect(response.body.email).to.eq("alan.collins@example.com");
       expect(response.body.password).to.eq("collins123");
-      console.log(`/registerByContact: ${contact} -- query parameter passed successfully`);
-      cy.log(`/registerByContact: ${contact} -- query parameter passed successfully`);
+      console.log(`/registerByContact: query parameter passed successfully`);
+      cy.log(`/registerByContact: query parameter passed successfully`);
     });
 
     cy.wait(3000);
@@ -107,8 +107,8 @@ describe("Testing ALL APIs: Demonstrating API Request Chaining", () => {
       expect(newUser.firstName).to.eq(firstName);
       expect(newUser.lastName).to.eq(lastName);
       expect(newUser.email).to.eq(email);
-      console.log(`/registers: ${contact} -- passed successfully`);
-      cy.log(`/registers: ${contact} -- passed successfully`);
+      console.log(`/registers: passed successfully`);
+      cy.log(`/registers: passed successfully`);
     });
 
     cy.wait(3000);
@@ -143,8 +143,8 @@ describe("Testing ALL APIs: Demonstrating API Request Chaining", () => {
         expect(responseBody).to.have.property("password");
         expect(responseBody.password).to.be.null;
 
-        console.log(`/addApplication: ${contact} -- JSON parsing passed successfully`);
-        cy.log(`/addApplication: ${contact} -- JSON parsing passed successfully`);
+        console.log(`/addApplication: JSON parsing passed successfully`);
+        cy.log(`/addApplication: JSON parsing passed successfully`);
         });
 
     cy.wait(3000);
@@ -193,8 +193,8 @@ describe("Testing ALL APIs: Demonstrating API Request Chaining", () => {
       expect(newUser).to.exist;
       expect(newUser.socialid).to.eq(socialid);
       expect(newUser.applicationstatus).to.eq("PENDING");
-      console.log(`/applications: ${contact} -- passed successfully`);
-      cy.log(`/applications: ${contact} -- passed successfully`);
+      console.log(`/applications: passed successfully`);
+      cy.log(`/applications: passed successfully`);
     });
 
     cy.wait(3000);
@@ -272,8 +272,8 @@ describe("Testing ALL APIs: Demonstrating API Request Chaining", () => {
         expect(responseBody).to.have.property("balance", "2000.0");
         expect(responseBody).to.have.property("kycstatus", "ACTIVE");
 
-        console.log(`/kycVerification: ${contact} -- KYC verification passed successfully`);
-        cy.log(`/kycVerification: ${contact} -- KYC verification passed successfully`);
+        console.log(`/kycVerification: KYC verification passed successfully`);
+        cy.log(`/kycVerification: KYC verification passed successfully`);
    });
 
     cy.wait(3000);
@@ -303,8 +303,8 @@ describe("Testing ALL APIs: Demonstrating API Request Chaining", () => {
         expect(responseBody).to.have.property("amount", 1000.0);
         expect(responseBody).to.have.property("password", null);
 
-        console.log(`/deposit: ${contact} -- deposit transaction passed successfully`);
-        cy.log(`/deposit: ${contact} -- deposit transaction passed successfully`);
+        console.log(`/deposit: deposit transaction passed successfully`);
+        cy.log(`/deposit: deposit transaction passed successfully`);
     });
 
     cy.wait(3000);
@@ -334,8 +334,8 @@ describe("Testing ALL APIs: Demonstrating API Request Chaining", () => {
         expect(responseBody).to.have.property("amount", 2000.0);
         expect(responseBody).to.have.property("password", null);
 
-        console.log(`/withdraw: ${contact} -- withdraw transaction passed successfully`);
-        cy.log(`/withdraw: ${contact} -- withdraw transaction passed successfully`);
+        console.log(`/withdraw: withdraw transaction passed successfully`);
+        cy.log(`/withdraw: withdraw transaction passed successfully`);
     });
 
     cy.wait(3000);
@@ -370,8 +370,8 @@ describe("Testing ALL APIs: Demonstrating API Request Chaining", () => {
         expect(responseBody).to.have.property("amount", transferAmount);
         expect(responseBody).to.have.property("password", null);
 
-        console.log(`/transferFund: ${payerContact} → ${recipientContact} -- fund transferred successfully`);
-        cy.log(`/transferFund: ${payerContact} → ${recipientContact} -- fund transferred successfully`);
+        console.log(`/transferFund: fund transferred successfully`);
+        cy.log(`/transferFund: fund transferred successfully`);
     });
 
     cy.wait(3000);
@@ -426,8 +426,8 @@ describe("Testing ALL APIs: Demonstrating API Request Chaining", () => {
             }
 
             expect(isValid, "Schema validation result").to.be.true;
-            console.log(`/displayStatement: Schema validated successfully for contact ${contact}`);
-            cy.log(`/displayStatement: Schema validated successfully for contact ${contact}`);
+            console.log(`/displayStatement: Schema validated successfully`);
+            cy.log(`/displayStatement: Schema validated successfully`);
         });
 
   });
