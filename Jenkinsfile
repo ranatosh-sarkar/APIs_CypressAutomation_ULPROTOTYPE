@@ -19,33 +19,28 @@ pipeline {
         }
 
         stage('Run Cypress Tests') {
-            steps {
-                bat '''
-                set CYPRESS_baseUrl=http://localhost:%PORT%/UL_SavingsAccount-API_prototype
-                npx cypress run ^
-                  --reporter mochawesome ^
-                  --reporter-options "reportDir=cypress/reports/html,overwrite=false,html=true,json=true" ^
-                || exit 0
+                steps {
+                    bat '''
+                    call set CYPRESS_baseUrl=http://localhost:%PORT%/UL_SavingsAccount-API_prototype
+                    npx cypress run ^
+                      --reporter cypress-mochawesome-reporter ^
+                      --reporter-options "reportDir=cypress/reports/html,overwrite=false,html=true,json=true" ^
+                    || exit 0
                 '''
-            }
-        }
-
-        stage('Publish Cypress Report') {
-            steps {
-                publishHTML(target: [
-                    allowMissing: true,
-                    keepAll: true,
-                    reportDir: 'cypress/reports/html',
-                    reportFiles: 'mochawesome.html',
-                    reportName: 'Cypress QA Report'
-                ])
-            }
-        }
+                }
+        }            
     }
 
     post {
         always {
             archiveArtifacts artifacts: 'cypress/reports/**/*.json', fingerprint: true
+            publishHTML(target: [
+                allowMissing: true,
+                keepAll: true,
+                reportDir: 'cypress/reports/html',
+                reportFiles: 'mochawesome.html',
+                reportName: 'Cypress Test Report'
+            ])
         }
     }
 }
