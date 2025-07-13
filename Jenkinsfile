@@ -22,8 +22,8 @@ pipeline {
                 steps {
                     bat '''
                     call set CYPRESS_baseUrl=http://localhost:%PORT%/UL_SavingsAccount-API_prototype
-                    call npx cypress run ^
-                      --reporter mochawesome ^
+                    npx cypress run ^
+                      --reporter cypress-mochawesome-reporter ^
                       --reporter-options "reportDir=cypress/reports/html,overwrite=false,html=true,json=true" ^
                     || exit 0
                 '''
