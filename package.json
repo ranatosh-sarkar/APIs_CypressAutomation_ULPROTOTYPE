@@ -4,14 +4,16 @@
   "description": "An automation testing framewoork to test APIs developed for a SavingsAccount prototype. This project is a part of my UL thesis.",
   "main": "index.js",
   "scripts": {
-  "cy:open": "cypress open",
-  "test": "npx cypress run --reporter cypress-mochawesome-reporter --reporter-options \"reportDir=cypress/reports/html,overwrite=false,html=true,json=false\""
+    "cy:open": "cypress open",
+    "test": "npx cypress run --reporter cypress-mochawesome-reporter --reporter-options \"reportDir=cypress/reports/html,overwrite=false,html=true,json=false\"",
+    "k6-test": "k6 run k6-tests/perf-test.js"
   },
   "author": "Ranatosh Sarkar",
   "license": "ISC",
   "devDependencies": {
     "cypress": "^14.5.1",
     "cypress-mochawesome-reporter": "^3.8.2",
+    "k6": "^0.0.0",
     "mochawesome": "^7.1.3",
     "mochawesome-merge": "^5.0.0",
     "mochawesome-report-generator": "^6.2.0"
