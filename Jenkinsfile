@@ -27,7 +27,7 @@ pipeline {
             }
         }
 
-        stage('Run K6 Pretty Reports') {
+        stage('Run K6 Tests') {
             steps {
                 bat 'npm run k6:run'
             }
