@@ -19,16 +19,19 @@ pipeline {
         }
 
         stage('Run Cypress Tests') {
-                steps {
-                    bat '''
-                    call set CYPRESS_baseUrl=http://localhost:%PORT%/UL_SavingsAccount-API_prototype
-                    npx cypress run ^
-                      --reporter cypress-mochawesome-reporter ^
-                      --reporter-options "reportDir=cypress/reports/html,overwrite=false,html=true,json=true" ^
-                    || exit 0
+            steps {
+                bat '''
+                call set CYPRESS_baseUrl=http://localhost:%PORT%/UL_SavingsAccount-API_prototype
+                npm run cy:run
                 '''
-                }
-        }            
+            }
+        }
+
+        stage('Run K6 Pretty Reports') {
+            steps {
+                bat 'npm run k6:run'
+            }
+        }
     }
 
     post {
@@ -41,6 +44,7 @@ pipeline {
                 reportFiles: 'mochawesome.html',
                 reportName: 'Cypress Test Report'
             ])
+            archiveArtifacts artifacts: 'k6-tests/result.json', fingerprint: true
         }
     }
 }
