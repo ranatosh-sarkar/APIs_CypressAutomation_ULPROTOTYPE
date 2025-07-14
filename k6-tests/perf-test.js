@@ -58,11 +58,11 @@ export function setup () {
 /* -------------------------------------------------------------------
    Default function run by every virtual user
 ------------------------------------------------------------------- */
-export default function (data) {
-  // const headers = { Authorization: `Bearer ${data.token}` };
-  const res = http.get('http://localhost:8082/UL_SavingsAccount-API_prototype/registers');
+export default function () {
+  const BASE_URL = __ENV.API_PORT || '8082';
+  const res = http.get(`http://localhost:${BASE_URL}/UL_SavingsAccount-API_prototype/registers`);
 
   check(res, { 'status is 200': (r) => r.status === 200 });
 
-  sleep(1); // think‑time so we don’t hammer the API unrealistically
+  sleep(1);
 }
