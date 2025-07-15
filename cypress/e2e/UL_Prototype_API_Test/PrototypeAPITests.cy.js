@@ -1,5 +1,4 @@
 describe("Testing ALL APIs: Demonstrating API Request Chaining", () => {
-
   const generate10DigitContact = () => Math.floor(1000000000 + Math.random() * 9000000000);
   const generate3Digit = () => Math.floor(100 + Math.random() * 900);
   const randomString = (length) => {
@@ -24,33 +23,29 @@ describe("Testing ALL APIs: Demonstrating API Request Chaining", () => {
   const taxid = "TAX" + socialid;
 
   it("Request Chaining all APIs", () => {
-
-    const requestBody_addRegister = { contact, firstName, lastName, email, password };
-
     // Step 1: POST /addRegister
     cy.request({
       method: "POST",
       url: `${Cypress.config().baseUrl}/addRegister`,
-      body: requestBody_addRegister,
-      failOnStatusCode: false,
-      timeout: 90000
-    }).then((response) => {
-      expect(response.status).to.eq(200);
-      expect(response.body).to.include({ contact, firstName, lastName, email });
+      body: { contact, firstName, lastName, email, password },
+      timeout: 90000,
+      failOnStatusCode: false
+    }).then((res) => {
+      expect(res.status).to.eq(200);
+      expect(res.body).to.include({ contact, firstName, lastName, email });
     });
 
     cy.wait(2000);
 
     // Step 2: GET /registerByContact
-    const registerByContactNumber = 6087654321;
     cy.request({
       method: "GET",
       url: `${Cypress.config().baseUrl}/registerByContact`,
-      qs: { contact: registerByContactNumber }
+      qs: { contact: 6087654321 }
     }).then((res) => {
       expect(res.status).to.eq(200);
       expect(res.body).to.include({
-        contact: registerByContactNumber,
+        contact: 6087654321,
         firstName: "Alan",
         lastName: "Collins",
         email: "alan.collins@example.com",
@@ -63,35 +58,38 @@ describe("Testing ALL APIs: Demonstrating API Request Chaining", () => {
     // Step 3: GET /registers
     cy.request("GET", `${Cypress.config().baseUrl}/registers`).then((res) => {
       expect(res.status).to.eq(200);
-      const newUser = res.body.find(u => u.contact === contact);
-      expect(newUser).to.include({ firstName, lastName, email });
+      const user = res.body.find(u => u.contact === contact);
+      expect(user).to.include({ firstName, lastName, email });
     });
 
     cy.wait(2000);
 
     // Step 4: POST /addApplication
-    const requestBody_addApplication = { contact, password, accounttype, country, socialid };
-    cy.request("POST", `${Cypress.config().baseUrl}/addApplication`, requestBody_addApplication)
-      .then(res => {
-        expect(res.status).to.eq(200);
-        expect(res.body).to.include({ contact, accounttype, country, socialid, applicationstatus });
-        expect(res.body.password).to.be.null;
-      });
+    cy.request({
+      method: "POST",
+      url: `${Cypress.config().baseUrl}/addApplication`,
+      body: { contact, password, accounttype, country, socialid },
+      timeout: 90000,
+      failOnStatusCode: false
+    }).then((res) => {
+      expect(res.status).to.eq(200);
+      expect(res.body).to.include({ contact, accounttype, country, socialid, applicationstatus });
+      expect(res.body.password).to.be.null;
+    });
 
     cy.wait(2000);
 
     // Step 5: GET /applicationByContact
-    cy.request("GET", `${Cypress.config().baseUrl}/applicationByContact/${contact}`)
-      .then(res => {
-        expect(res.status).to.eq(200);
-        expect(res.body).to.include({ contact, accounttype, country, socialid, applicationstatus });
-        expect(res.body.password).to.be.null;
-      });
+    cy.request("GET", `${Cypress.config().baseUrl}/applicationByContact/${contact}`).then((res) => {
+      expect(res.status).to.eq(200);
+      expect(res.body).to.include({ contact, accounttype, country, socialid, applicationstatus });
+      expect(res.body.password).to.be.null;
+    });
 
     cy.wait(2000);
 
     // Step 6: GET /applications
-    cy.request("GET", `${Cypress.config().baseUrl}/applications`).then(res => {
+    cy.request("GET", `${Cypress.config().baseUrl}/applications`).then((res) => {
       expect(res.status).to.eq(200);
       const app = res.body.find(u => u.contact === contact);
       expect(app).to.include({ socialid, applicationstatus });
@@ -100,34 +98,45 @@ describe("Testing ALL APIs: Demonstrating API Request Chaining", () => {
     cy.wait(2000);
 
     // Step 7: POST /kycDataCapture
-    const requestBody_kycDataCapture = {
-      contact, password, socialid, annualincome, taxid,
-      drivinglicence, passportnumber, occupation, ongoingloans
-    };
-    cy.request("POST", `${Cypress.config().baseUrl}/kycDataCapture`, requestBody_kycDataCapture)
-      .then(res => {
-        expect(res.status).to.eq(200);
-        expect(res.body).to.include(requestBody_kycDataCapture);
-      });
+    const kycPayload = { contact, password, socialid, annualincome, taxid, drivinglicence, passportnumber, occupation, ongoingloans };
+    cy.request({
+      method: "POST",
+      url: `${Cypress.config().baseUrl}/kycDataCapture`,
+      body: kycPayload,
+      timeout: 90000,
+      failOnStatusCode: false
+    }).then((res) => {
+      expect(res.status).to.eq(200);
+      expect(res.body).to.include(kycPayload);
+    });
 
     cy.wait(2000);
 
     // Step 8: POST /kycVerification
-    cy.request("POST", `${Cypress.config().baseUrl}/kycVerification`, requestBody_kycDataCapture)
-      .then(res => {
-        expect(res.status).to.eq(200);
-        expect(res.body).to.include({
-          contact, firstName, lastName, email, password, socialid,
-          applicationstatus: "ACTIVE", balance: "2000.0", kycstatus: "ACTIVE"
-        });
+    cy.request({
+      method: "POST",
+      url: `${Cypress.config().baseUrl}/kycVerification`,
+      body: kycPayload,
+      timeout: 90000,
+      failOnStatusCode: false
+    }).then((res) => {
+      expect(res.status).to.eq(200);
+      expect(res.body).to.include({
+        contact, firstName, lastName, email, password, socialid,
+        applicationstatus: "ACTIVE", balance: "2000.0", kycstatus: "ACTIVE"
       });
+    });
 
     cy.wait(2000);
 
     // Step 9: POST /deposit
-    cy.request("POST", `${Cypress.config().baseUrl}/deposit`, {
-      contact, password, amount: 1000.00
-    }).then(res => {
+    cy.request({
+      method: "POST",
+      url: `${Cypress.config().baseUrl}/deposit`,
+      body: { contact, password, amount: 1000.00 },
+      timeout: 90000,
+      failOnStatusCode: false
+    }).then((res) => {
       expect(res.status).to.eq(200);
       expect(res.body).to.include({
         contact, txntype: "DEPOSIT", amount: 1000.00, password: null
@@ -137,9 +146,13 @@ describe("Testing ALL APIs: Demonstrating API Request Chaining", () => {
     cy.wait(2000);
 
     // Step 10: POST /withdraw
-    cy.request("POST", `${Cypress.config().baseUrl}/withdraw`, {
-      contact, password, amount: 2000.00
-    }).then(res => {
+    cy.request({
+      method: "POST",
+      url: `${Cypress.config().baseUrl}/withdraw`,
+      body: { contact, password, amount: 2000.00 },
+      timeout: 90000,
+      failOnStatusCode: false
+    }).then((res) => {
       expect(res.status).to.eq(200);
       expect(res.body).to.include({
         contact, txntype: "WITHDRAW", amount: 2000.00, password: null
@@ -148,20 +161,23 @@ describe("Testing ALL APIs: Demonstrating API Request Chaining", () => {
 
     cy.wait(2000);
 
-    // Step 11: POST /transferFund/{recipientContact}
-    const recipientContact = 6087654321;
-    cy.request("POST", `${Cypress.config().baseUrl}/transferFund/${recipientContact}`, {
-      contact, password, amount: 500.00
-    }).then(res => {
+    // Step 11: POST /transferFund
+    cy.request({
+      method: "POST",
+      url: `${Cypress.config().baseUrl}/transferFund/6087654321`,
+      body: { contact, password, amount: 500.00 },
+      timeout: 90000,
+      failOnStatusCode: false
+    }).then((res) => {
       expect(res.status).to.eq(200);
       expect(res.body).to.include({
-        contact: recipientContact, txntype: "TRANSFER_IN", amount: 500.00, password: null
+        contact: 6087654321, txntype: "TRANSFER_IN", amount: 500.00, password: null
       });
     });
 
     cy.wait(2000);
 
-    // Step 12: GET /displayStatement/{contact}?password={password}
+    // Step 12: GET /displayStatement (with JSON Schema validation)
     const Ajv = require("ajv");
     const ajv = new Ajv();
     const transactionSchema = {
@@ -182,13 +198,11 @@ describe("Testing ALL APIs: Demonstrating API Request Chaining", () => {
       }
     };
 
-    cy.request("GET", `${Cypress.config().baseUrl}/displayStatement/${contact}?password=${password}`)
-      .then(res => {
-        expect(res.status).to.eq(200);
-        const isValid = ajv.validate(transactionSchema, res.body);
-        if (!isValid) console.error(ajv.errors);
-        expect(isValid).to.be.true;
-      });
+    cy.request("GET", `${Cypress.config().baseUrl}/displayStatement/${contact}?password=${password}`).then((res) => {
+      expect(res.status).to.eq(200);
+      const isValid = ajv.validate(transactionSchema, res.body);
+      if (!isValid) console.error("Schema validation failed:", ajv.errors);
+      expect(isValid).to.be.true;
+    });
   });
-
 });
