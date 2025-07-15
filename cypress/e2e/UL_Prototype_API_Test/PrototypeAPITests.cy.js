@@ -1,17 +1,17 @@
 describe("Testing ALL APIs: Demonstrating API Request Chaining", () => {
-  // const contact = 7654646957;
-  // const firstName = "KISS";
-  // const lastName = "KASS";
-  // const email = "kiss.kass@example.com";
-  // const password = "kass123";
+  // const contact = 3246876957;
+  // const firstName = "HR";
+  // const lastName = "RH";
+  // const email = "hr@example.com";
+  // const password = "hr123";
 
 it("Fix POST /addRegister request", () => {
   const requestBody_addRegister = {
-    contact: 7654646957,
-    firstName: "KISS",
-    lastName: "KASS",
-    email: "kiss.kass@example.com",
-    password: "kass123"
+    contact: 3246876957,
+    firstName: "HR",
+    lastName: "RH",
+    email: "hr.rh@example.com",
+    password: "hr123"
   };
 
   cy.log("🚀 POST /addRegister with extended timeout...");
