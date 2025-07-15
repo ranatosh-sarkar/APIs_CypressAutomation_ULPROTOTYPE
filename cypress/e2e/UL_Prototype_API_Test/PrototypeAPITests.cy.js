@@ -1,9 +1,9 @@
 describe("Testing ALL APIs: Demonstrating API Request Chaining", () => {
-  const contact = 7654661357;
-  const firstName = "Kitti";
-  const lastName = "Katta";
-  const email = "kitti.katta@example.com";
-  const password = "katta123";
+  const contact = 7654646957;
+  const firstName = "KISS";
+  const lastName = "KASS";
+  const email = "kiss.kass@example.com";
+  const password = "kass123";
 
   it("Fix POST /addRegister request", () => {
     const requestBody_addRegister = {
