@@ -1,7 +1,7 @@
 name: Cypress E2E Tests via Ngrok
 
 on:
-  workflow_dispatch:
+  workflow_dispatch:  # Allows manual trigger
 
 jobs:
   cypress-tests:
@@ -21,7 +21,7 @@ jobs:
 
       - name: 🌐 Run Cypress Tests Against Ngrok Tunnel
         env:
-          API_BASE_URL: ${{ secrets.NGROK }}  # Add this in GitHub secrets
+          API_BASE_URL: https://ed248b94cbd4.ngrok-free.app  # ✅ Manually update before pushing
         run: |
           echo "✅ Running Cypress tests on $API_BASE_URL"
           npx cypress run --config baseUrl=$API_BASE_URL
