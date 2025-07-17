@@ -21,7 +21,7 @@ jobs:
 
       - name: 🌐 Run Cypress Tests Against Ngrok Tunnel
         env:
-          API_BASE_URL: https://ed248b94cbd4.ngrok-free.app -> http://localhost:8082
+          API_BASE_URL: https://6a2965ae6dec.ngrok-free.app
         run: |
           echo "✅ Running Cypress tests on $API_BASE_URL"
           npx cypress run --config baseUrl=$API_BASE_URL
