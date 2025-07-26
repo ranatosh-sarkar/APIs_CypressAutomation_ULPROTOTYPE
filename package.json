@@ -3,9 +3,14 @@
   "version": "1.0.0",
   "description": "An automation testing framewoork to test APIs developed for a SavingsAccount prototype. This project is a part of my UL thesis.",
   "main": "index.js",
+  //"scripts": {
+  //  "cy:run": "npx cypress run --reporter cypress-mochawesome-reporter --reporter-options \"reportDir=cypress/reports/html,overwrite=false,html=true,json=true\"",
+  //  "k6:run": "k6 run k6-tests/perf-test.js --summary-export=k6-tests/result.json"
+  //},
   "scripts": {
     "cy:run": "npx cypress run --reporter cypress-mochawesome-reporter --reporter-options \"reportDir=cypress/reports/html,overwrite=false,html=true,json=true\"",
-    "k6:run": "k6 run k6-tests/perf-test.js --summary-export=k6-tests/result.json"
+    "k6:run": "k6 run k6-tests/perf-test.js --summary-export=k6-tests/result.json",
+    "all-tests": "concurrently \"npm:cy:run\" \"npm:cy:run\" \"npm:cy:run\" \"npm:cy:run\" \"npm:cy:run\" && npm run k6:run && npm run k6:run && npm run k6:run && npm run k6:run && npm run k6:run"
   },
   "author": "Ranatosh Sarkar",
   "license": "ISC",
