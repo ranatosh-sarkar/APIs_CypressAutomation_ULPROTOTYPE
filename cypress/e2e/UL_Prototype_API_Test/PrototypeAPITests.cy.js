@@ -1,8 +1,8 @@
 describe("Testing ALL APIs: Demonstrating API Request Chaining", () => {
 
-  const generate10DigitContact = () => Math.floor(1000000000 + Math.random() * 9000000000);
-  const generate3Digit = () => Math.floor(100 + Math.random() * 900);
-  const randomString = (length) => {
+    const generate10DigitContact = () => Math.floor(1000000000 + Math.random() * 9000000000);
+    const generate3Digit = () => Math.floor(100 + Math.random() * 900);
+    const randomString = (length) => {
     const chars = 'abcdefghijklmnopqrstuvwxyz';
     return Array.from({ length }, () => chars[Math.floor(Math.random() * chars.length)]).join('');
   };
@@ -24,7 +24,7 @@ describe("Testing ALL APIs: Demonstrating API Request Chaining", () => {
   const taxid = "TAX" + socialid;
 
   it("Request Chaining all APIs", () => {
-    cy.log("🚀 POST /addRegister");
+    cy.log("POST /addRegister");
 
     const requestBody_addRegister = { contact, firstName, lastName, email, password };
 
@@ -38,13 +38,13 @@ describe("Testing ALL APIs: Demonstrating API Request Chaining", () => {
     }).then((response) => {
       expect(response.status).to.eq(200);
       expect(response.body).to.deep.include(requestBody_addRegister);
-      cy.log("✅ /addRegister passed");
+      cy.log("/addRegister passed");
     });
 
     cy.wait(3000);
 
     // Step 2
-    cy.log("📞 GET /registerByContact");
+    cy.log("GET /registerByContact");
     const knownContact = 6087654321;
     cy.request({
       method: "GET",
@@ -63,7 +63,7 @@ describe("Testing ALL APIs: Demonstrating API Request Chaining", () => {
     cy.wait(3000);
 
     // Step 3
-    cy.log("📄 GET /registers");
+    cy.log("GET /registers");
     cy.request(`${Cypress.config().baseUrl}/registers`).then((res) => {
       expect(res.status).to.eq(200);
       const match = res.body.find(u => u.contact === contact);
@@ -74,7 +74,7 @@ describe("Testing ALL APIs: Demonstrating API Request Chaining", () => {
     cy.wait(3000);
 
     // Step 4
-    cy.log("📝 POST /addApplication");
+    cy.log("POST /addApplication");
     cy.request({
       method: "POST",
       url: `${Cypress.config().baseUrl}/addApplication`,
@@ -88,7 +88,7 @@ describe("Testing ALL APIs: Demonstrating API Request Chaining", () => {
     cy.wait(3000);
 
     // Step 5
-    cy.log("🔍 GET /applicationByContact");
+    cy.log("GET /applicationByContact");
     cy.request(`${Cypress.config().baseUrl}/applicationByContact/${contact}`).then((res) => {
       expect(res.status).to.eq(200);
       expect(res.body).to.include({ contact, country, socialid, applicationstatus });
@@ -97,7 +97,7 @@ describe("Testing ALL APIs: Demonstrating API Request Chaining", () => {
     cy.wait(3000);
 
     // Step 6
-    cy.log("📋 GET /applications");
+    cy.log("GET /applications");
     cy.request(`${Cypress.config().baseUrl}/applications`).then((res) => {
       expect(res.status).to.eq(200);
       const found = res.body.find(app => app.contact === contact);
@@ -108,7 +108,7 @@ describe("Testing ALL APIs: Demonstrating API Request Chaining", () => {
     cy.wait(3000);
 
     // Step 7
-    cy.log("🧾 POST /kycDataCapture");
+    cy.log("POST /kycDataCapture");
     cy.request({
       method: "POST",
       url: `${Cypress.config().baseUrl}/kycDataCapture`,
@@ -121,7 +121,7 @@ describe("Testing ALL APIs: Demonstrating API Request Chaining", () => {
     cy.wait(3000);
 
     // Step 8
-    cy.log("✔️ POST /kycVerification");
+    cy.log("POST /kycVerification");
     cy.request({
       method: "POST",
       url: `${Cypress.config().baseUrl}/kycVerification`,
@@ -143,7 +143,7 @@ describe("Testing ALL APIs: Demonstrating API Request Chaining", () => {
     cy.wait(3000);
 
     // Step 9
-    cy.log("💵 POST /deposit");
+    cy.log("POST /deposit");
     cy.request({
       method: "POST",
       url: `${Cypress.config().baseUrl}/deposit`,
@@ -156,7 +156,7 @@ describe("Testing ALL APIs: Demonstrating API Request Chaining", () => {
     cy.wait(3000);
 
     // Step 10
-    cy.log("🏧 POST /withdraw");
+    cy.log("POST /withdraw");
     cy.request({
       method: "POST",
       url: `${Cypress.config().baseUrl}/withdraw`,
@@ -169,7 +169,7 @@ describe("Testing ALL APIs: Demonstrating API Request Chaining", () => {
     cy.wait(3000);
 
     // Step 11
-    cy.log("🔁 POST /transferFund");
+    cy.log("POST /transferFund");
     const recipientContact = 6087654321;
     cy.request({
       method: "POST",
@@ -183,7 +183,7 @@ describe("Testing ALL APIs: Demonstrating API Request Chaining", () => {
     cy.wait(3000);
 
     // Step 12
-    cy.log("🧾 GET /displayStatement with schema validation");
+    cy.log("GET /displayStatement with schema validation");
     const Ajv = require("ajv");
     const ajv = new Ajv();
     const schema = {
