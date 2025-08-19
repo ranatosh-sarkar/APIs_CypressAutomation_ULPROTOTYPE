@@ -15,8 +15,8 @@ module.exports = defineConfig({
     saveAllAttempts: false,
     quiet: true
   },
-  defaultCommandTimeout: 90000,  // ⏱️ wait up to 90 seconds for commands
-  requestTimeout: 90000,         // ⏱️ wait up to 90 seconds for cy.request
+  defaultCommandTimeout: 90000,  // wait up to 90 seconds for commands
+  requestTimeout: 90000,         // wait up to 90 seconds for cy.request
   e2e: {
     baseUrl: `http://localhost:${port}/UL_SavingsAccount-API_prototype`,
     setupNodeEvents(on, config) {
